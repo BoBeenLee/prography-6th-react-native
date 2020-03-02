@@ -1,14 +1,14 @@
-import _ from 'lodash';
-import React, {useState} from 'react';
-import {ViewProps} from 'react-native';
-import styled, {css} from 'styled-components/native';
+import _ from "lodash";
+import React, { useState } from "react";
+import { ViewProps } from "react-native";
+import styled, { css } from "styled-components/native";
 
-type ButtonType = 'modify' | 'delete' | 'complete';
+type ButtonType = "modify" | "delete" | "complete";
 
 interface Props {
-  style?: ViewProps['style'];
+  style?: ViewProps["style"];
   checked: boolean;
-  status: 'text' | 'input';
+  status: "text" | "input";
   title: string;
   onPress: () => void;
   onModify?: () => void;
@@ -16,10 +16,10 @@ interface Props {
   onComplete?: (text: string) => void;
 }
 
-const ButtonTextColor: {[key in ButtonType]: string} = {
-  modify: '#51B0EB',
-  delete: '#FF0000',
-  complete: '#4E4A4B',
+const ButtonTextColor: { [key in ButtonType]: string } = {
+  modify: "#51B0EB",
+  delete: "#FF0000",
+  complete: "#4E4A4B"
 };
 
 const Container = styled.View`
@@ -37,9 +37,9 @@ const Content = styled.TouchableOpacity`
   align-items: center;
 `;
 
-const Title = styled.Text<{checked: boolean}>`
+const Title = styled.Text<{ checked: boolean }>`
   flex: 1;
-  ${({checked}) =>
+  ${({ checked }) =>
     checked
       ? css`
           text-decoration-line: line-through;
@@ -55,8 +55,8 @@ const Button = styled.TouchableOpacity`
   margin-horizontal: 15px;
 `;
 
-const ButtonText = styled.Text<{type: ButtonType}>`
-  color: ${({type}) => ButtonTextColor[type]};
+const ButtonText = styled.Text<{ type: ButtonType }>`
+  color: ${({ type }) => ButtonTextColor[type]};
 `;
 
 const TodoCard = (props: Props) => {
@@ -68,7 +68,7 @@ const TodoCard = (props: Props) => {
     onPress,
     onModify,
     onDelete,
-    onComplete,
+    onComplete
   } = props;
   const [titleInput, setTitleInput] = useState(title);
 
@@ -78,7 +78,7 @@ const TodoCard = (props: Props) => {
   return (
     <Container style={style}>
       <Content onPress={onPress}>
-        {status === 'input' ? (
+        {status === "input" ? (
           <TitleInput
             autoFocus={true}
             value={titleInput}

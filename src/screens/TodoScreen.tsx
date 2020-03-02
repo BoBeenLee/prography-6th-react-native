@@ -1,21 +1,19 @@
-import _ from 'lodash';
-import React, {Component, ComponentClass} from 'react';
-import {FlatListProps, FlatList, ListRenderItem} from 'react-native';
-import {inject, observer, Observer} from 'mobx-react';
-import styled from 'styled-components/native';
+import _ from "lodash";
+import React, { Component, ComponentClass } from "react";
+import { FlatListProps, FlatList, ListRenderItem } from "react-native";
+import { inject, observer, Observer } from "mobx-react";
+import styled from "styled-components/native";
 
-import {StackNavigationProp} from '@react-navigation/stack';
-import TodoInput from 'src/components/input/TodoInput';
-import {IStore} from 'src/stores/Store';
-import {ITodoStore} from 'src/stores/TodoStore';
-import {ITodo} from 'src/stores/model/Todo';
-import TodoCard from 'src/components/card/TodoCard';
+import { StackNavigationProp } from "@react-navigation/stack";
+import TodoInput from "src/components/input/TodoInput";
+import { IStore } from "src/stores/Store";
+import { ITodoStore } from "src/stores/TodoStore";
+import { ITodo } from "src/stores/model/Todo";
+import TodoCard from "src/components/card/TodoCard";
 
 interface Inject {
   todoStore: ITodoStore;
 }
-
-interface Params {}
 
 interface Props extends Inject {
   navigation: StackNavigationProp<any>;
@@ -36,37 +34,36 @@ const Container = styled.View`
 
 const Todos = styled<ComponentClass<FlatListProps<ITodo>>>(FlatList).attrs({
   contentContainerStyle: {
-    paddingBottom: 95,
-  },
+    paddingBottom: 95
+  }
 })`
   flex: 1;
   width: 100%;
 `;
 
 @inject(
-  ({store}: {store: IStore}): Inject => ({
-    todoStore: store.todoStore,
-  }),
+  ({ store }: { store: IStore }): Inject => ({
+    todoStore: store.todoStore
+  })
 )
 @observer
 class TodoScreen extends Component<Props, States> {
   public static open(
-    navigation: StackNavigationProp<any>,
-    params: Params,
+    navigation: StackNavigationProp<any>
   ): void {
-    navigation.navigate('Todo', params);
+    navigation.navigate("Todo");
   }
 
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      selectedTodoItem: null,
+      selectedTodoItem: null
     };
   }
 
   public render() {
-    const {todoViews} = this.props.todoStore;
+    const { todoViews } = this.props.todoStore;
     return (
       <Container>
         <TodoInput onAdd={this.onTodoAdd} />
@@ -83,13 +80,13 @@ class TodoScreen extends Component<Props, States> {
     return `${item.id}${index}`;
   };
 
-  private renderTodoItem: ListRenderItem<ITodo> = ({item}) => {
+  private renderTodoItem: ListRenderItem<ITodo> = ({ item }) => {
     return (
       <Observer>
         {() => {
-          const {title, checked} = item;
-          const {selectedTodoItem} = this.state;
-          const status = selectedTodoItem?.id === item.id ? 'input' : 'text';
+          const { title, checked } = item;
+          const { selectedTodoItem } = this.state;
+          const status = selectedTodoItem?.id === item.id ? "input" : "text";
           return (
             <TodoCard
               checked={checked}
@@ -97,16 +94,16 @@ class TodoScreen extends Component<Props, States> {
               title={title}
               onPress={_.partial(this.onTodoToggle, item)}
               onModify={
-                status === 'text'
+                status === "text"
                   ? _.partial(this.onTodoModify, item)
                   : undefined
               }
               onDelete={
-                status === 'text'
+                status === "text"
                   ? _.partial(this.onTodoDelete, item.id)
                   : undefined
               }
-              onComplete={status === 'input' ? this.onTodoComplete : undefined}
+              onComplete={status === "input" ? this.onTodoComplete : undefined}
             />
           );
         }}
@@ -119,26 +116,26 @@ class TodoScreen extends Component<Props, States> {
   };
 
   private onTodoAdd = (text: string) => {
-    const {addTodo} = this.props.todoStore;
+    const { addTodo } = this.props.todoStore;
     addTodo(text);
   };
 
   private onTodoDelete = (id: string) => {
-    const {removeById} = this.props.todoStore;
+    const { removeById } = this.props.todoStore;
     removeById(id);
   };
 
   private onTodoModify = (item: ITodo) => {
     this.setState({
-      selectedTodoItem: item,
+      selectedTodoItem: item
     });
   };
 
   private onTodoComplete = (text: string) => {
-    const {selectedTodoItem} = this.state;
+    const { selectedTodoItem } = this.state;
     selectedTodoItem?.setTitle(text);
     this.setState({
-      selectedTodoItem: null,
+      selectedTodoItem: null
     });
   };
 }

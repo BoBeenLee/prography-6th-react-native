@@ -1,7 +1,7 @@
-import {types} from 'mobx-state-tree';
+import { types } from "mobx-state-tree";
 
 const Todo = types
-  .model('Todo', {
+  .model("Todo", {
     id: types.identifier,
     title: types.string,
     checked: types.optional(types.boolean, false)

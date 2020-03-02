@@ -1,10 +1,10 @@
-import _ from 'lodash';
-import React, {Component} from 'react';
-import styled from 'styled-components/native';
+import _ from "lodash";
+import React, { Component } from "react";
+import styled from "styled-components/native";
 
-import {StackNavigationProp} from '@react-navigation/stack';
-import TodoScreen from 'src/screens/TodoScreen';
-import MovieScreen from 'src/screens/MovieScreen';
+import { StackNavigationProp } from "@react-navigation/stack";
+import TodoScreen from "src/screens/TodoScreen";
+import MovieScreen from "src/screens/MovieScreen";
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -34,7 +34,7 @@ const MenuItemText = styled.Text`
 
 class HomeScreen extends Component<Props> {
   render() {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     return (
       <Container>
         <MenuItem onPress={_.partial(TodoScreen.open, navigation)}>

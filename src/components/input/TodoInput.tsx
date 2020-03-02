@@ -1,10 +1,10 @@
-import _ from 'lodash';
-import React, {useState, useCallback} from 'react';
-import {ViewProps} from 'react-native';
-import styled from 'styled-components/native';
+import _ from "lodash";
+import React, { useState, useCallback } from "react";
+import { ViewProps } from "react-native";
+import styled from "styled-components/native";
 
 interface Props {
-  style?: ViewProps['style'];
+  style?: ViewProps["style"];
   onAdd: (text: string) => void;
 }
 
@@ -37,22 +37,22 @@ const AddButtonText = styled.Text`
 `;
 
 const TodoInput = (props: Props) => {
-  const {style, onAdd} = props;
-  const [text, setText] = useState('');
+  const { style, onAdd } = props;
+  const [text, setText] = useState("");
 
   const onChangeText = useCallback(
     (text: string) => {
       setText(text);
     },
-    [text],
+    [text]
   );
 
   const addTodo = useCallback(
     (text: string) => {
       onAdd(text);
-      setText('');
+      setText("");
     },
-    [text],
+    [text]
   );
 
   return (

@@ -4,9 +4,6 @@ import React from "react";
 
 import TodoInput from "src/components/input/TodoInput";
 
-storiesOf("Input", module)
-  .add("TodoInput", () => {
-    return (
-      <TodoInput onAdd={action("onAdd")} />
-    );
-  })
+storiesOf("Input", module).add("TodoInput", () => {
+  return <TodoInput onAdd={action("onAdd")} />;
+});

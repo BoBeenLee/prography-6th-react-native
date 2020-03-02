@@ -1,10 +1,10 @@
-import React, {Component, ComponentClass} from 'react';
-import {FlatListProps, FlatList, ListRenderItem} from 'react-native';
-import styled from 'styled-components/native';
-import {StackNavigationProp} from '@react-navigation/stack';
+import React, { Component, ComponentClass } from "react";
+import { FlatListProps, FlatList, ListRenderItem } from "react-native";
+import styled from "styled-components/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-import withLoading, {ILoadingProps} from 'src/hocs/withLoading';
-import {MovieItem, movies} from 'src/apis/movie';
+import withLoading, { ILoadingProps } from "src/hocs/withLoading";
+import { MovieItem, movies } from "src/apis/movie";
 
 interface Props extends ILoadingProps {
   navigation: StackNavigationProp<any>;
@@ -25,9 +25,9 @@ const Movies = styled<ComponentClass<FlatListProps<MovieItem>>>(FlatList).attrs(
   {
     contentContainerStyle: {
       paddingBottom: 95,
-      paddingHorizontal: 20,
-    },
-  },
+      paddingHorizontal: 20
+    }
+  }
 )`
   flex: 1;
   width: 100%;
@@ -51,14 +51,14 @@ const ItemRating = styled.Text`
 
 class MovieScreen extends Component<Props, States> {
   public static open(navigation: StackNavigationProp<any>): void {
-    navigation.navigate('Movie');
+    navigation.navigate("Movie");
   }
 
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      movieItems: [],
+      movieItems: []
     };
     this.initialize = props.wrapperLoading?.(this.initialize);
   }
@@ -68,7 +68,7 @@ class MovieScreen extends Component<Props, States> {
   }
 
   public render() {
-    const {movieItems} = this.state;
+    const { movieItems } = this.state;
     return (
       <Container>
         <Movies
@@ -82,7 +82,7 @@ class MovieScreen extends Component<Props, States> {
 
   private initialize = async () => {
     this.setState({
-      movieItems: await movies(),
+      movieItems: await movies()
     });
   };
 
@@ -90,8 +90,8 @@ class MovieScreen extends Component<Props, States> {
     return `${item.id}${index}`;
   };
 
-  private renderMovieItem: ListRenderItem<MovieItem> = ({item}) => {
-    const {title, rating} = item;
+  private renderMovieItem: ListRenderItem<MovieItem> = ({ item }) => {
+    const { title, rating } = item;
     return (
       <MovieItemView>
         <ItemTitle>{title}</ItemTitle>

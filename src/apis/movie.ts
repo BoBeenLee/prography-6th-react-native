@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
-import {ENV} from 'src/configs/env';
+import { ENV } from "src/configs/env";
 
 export interface MoviesResponse {
   status: string;
   status_message: string;
   data: Data;
-  '@meta': Meta;
+  "@meta": Meta;
 }
 
 export interface Data {
