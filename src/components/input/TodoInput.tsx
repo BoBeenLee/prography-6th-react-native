@@ -63,6 +63,7 @@ const TodoInput = (props: Props) => {
           placeholder="메모를 적어보세요"
           value={text}
           onChangeText={onChangeText}
+          onSubmitEditing={_.partial(addTodo, text)}
         />
       </InputView>
       <AddButton onPress={_.partial(addTodo, text)}>
