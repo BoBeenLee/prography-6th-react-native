@@ -12,14 +12,16 @@ const TodoContainer = styled.View`
 storiesOf('Card', module).add('TodoCard', () => {
   return (
     <TodoContainer>
-      <TodoCard status="text" title="헬로우월드드드" />
+      <TodoCard checked={false} status="text" title="헬로우월드드드" />
       <TodoCard
+        checked={false}
         status="text"
         title="헬로우월드드드"
         onModify={action('onModify')}
         onDelete={action('onDelete')}
       />
       <TodoCard
+        checked={false}
         status="text"
         title="헬로우월드드드"
         onComplete={action('onComplete')}
