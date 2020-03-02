@@ -48,9 +48,7 @@ const Todos = styled<ComponentClass<FlatListProps<ITodo>>>(FlatList).attrs({
 )
 @observer
 class TodoScreen extends Component<Props, States> {
-  public static open(
-    navigation: StackNavigationProp<any>
-  ): void {
+  public static open(navigation: StackNavigationProp<any>): void {
     navigation.navigate("Todo");
   }
 
