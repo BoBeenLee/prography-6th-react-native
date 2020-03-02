@@ -10,7 +10,7 @@ interface Props {
   checked: boolean;
   status: "text" | "input";
   title: string;
-  onPress: () => void;
+  onPress?: () => void;
   onModify?: () => void;
   onDelete?: () => void;
   onComplete?: (text: string) => void;
