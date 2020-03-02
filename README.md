@@ -10,6 +10,17 @@
 
 <img width="1329" alt="demo" src="./assignment.gif">
 
+
+### Installing / Getting started
+
+```shell
+npm install
+
+# ios
+cd ios
+pod install
+```
+
 ### 구현 기능 명세
 
 - 구현 예시 (순서대로 Home, ToDoList, Movie 화면 / 이 Repository에 포함된 동영상도 참고)
