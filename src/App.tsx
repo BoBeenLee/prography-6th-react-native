@@ -10,11 +10,13 @@ import {getRootStore} from 'src/stores/Store';
 import HomeScreen from 'src/screens/HomeScreen';
 import TodoScreen from 'src/screens/TodoScreen';
 import MovieScreen from 'src/screens/MovieScreen';
+import withLoading from "src/hocs/withLoading";
 
 const Stack = createStackNavigator();
 
 const Container = styled(NavigationContainer)`
   flex: 1;
+  height: 100%;
 `;
 
 interface ScreenItem {
@@ -45,19 +47,16 @@ const enhanceScreen = (): ScreenItem[] => {
   return screens;
 };
 
-const App = (): JSX.Element => {
+const App = (props: any): JSX.Element => {
   return (
     <Container>
       <Stack.Navigator initialRouteName="Home">
         {_.map(enhanceScreen(), item => {
-          const {name, component, options} = item;
+          const {name, component: TargetScreen, options} = item;
           return (
-            <Stack.Screen
-              key={name}
-              name={name}
-              component={component}
-              options={options}
-            />
+            <Stack.Screen key={name} name={name} options={options}>
+              {navigatorProps => <TargetScreen {...navigatorProps} {...props} />}
+            </Stack.Screen>
           );
         })}
       </Stack.Navigator>
@@ -65,4 +64,4 @@ const App = (): JSX.Element => {
   );
 };
 
-export default compose(withStore(store))(App);
+export default compose(withStore(store), withLoading())(App);

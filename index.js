@@ -4,6 +4,6 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import App from './src/App';
 import {name as appName} from './app.json';
-import Storybook from "./storybook";
+// import Storybook from "./storybook";
 
 AppRegistry.registerComponent(appName, () => App);

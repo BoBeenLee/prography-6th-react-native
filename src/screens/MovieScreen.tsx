@@ -1,11 +1,12 @@
 import React, {Component, ComponentClass} from 'react';
 import {FlatListProps, FlatList, ListRenderItem} from 'react-native';
 import styled from 'styled-components/native';
-
 import {StackNavigationProp} from '@react-navigation/stack';
+
+import withLoading, {ILoadingProps} from 'src/hocs/withLoading';
 import {MovieItem, movies} from 'src/apis/movie';
 
-interface Props {
+interface Props extends ILoadingProps {
   navigation: StackNavigationProp<any>;
 }
 
@@ -24,7 +25,7 @@ const Movies = styled<ComponentClass<FlatListProps<MovieItem>>>(FlatList).attrs(
   {
     contentContainerStyle: {
       paddingBottom: 95,
-      paddingHorizontal: 20
+      paddingHorizontal: 20,
     },
   },
 )`
@@ -40,18 +41,16 @@ const MovieItemView = styled.View`
 `;
 
 const ItemTitle = styled.Text`
-    flex: 3;
+  flex: 3;
 `;
 
 const ItemRating = styled.Text`
-    flex: 1;
-    text-align: right;
+  flex: 1;
+  text-align: right;
 `;
 
 class MovieScreen extends Component<Props, States> {
-  public static open(
-    navigation: StackNavigationProp<any>,
-  ): void {
+  public static open(navigation: StackNavigationProp<any>): void {
     navigation.navigate('Movie');
   }
 
@@ -61,12 +60,11 @@ class MovieScreen extends Component<Props, States> {
     this.state = {
       movieItems: [],
     };
+    this.initialize = props.wrapperLoading?.(this.initialize);
   }
 
   public async componentDidMount() {
-    this.setState({
-      movieItems: await movies(),
-    });
+    await this.initialize();
   }
 
   public render() {
@@ -81,6 +79,12 @@ class MovieScreen extends Component<Props, States> {
       </Container>
     );
   }
+
+  private initialize = async () => {
+    this.setState({
+      movieItems: await movies(),
+    });
+  };
 
   private movieItemKeyExtractor = (item: MovieItem, index: number) => {
     return `${item.id}${index}`;
